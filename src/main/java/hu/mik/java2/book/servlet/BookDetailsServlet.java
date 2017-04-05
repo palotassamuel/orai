@@ -15,6 +15,7 @@ import hu.mik.java2.service.ServiceUtils;
 
 @WebServlet(urlPatterns="/book_details")
 public class BookDetailsServlet extends HttpServlet{
+	private static final long serialVersionUID=1L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,9 +24,7 @@ public class BookDetailsServlet extends HttpServlet{
 		
 		if(req.getParameter("bookId")!=null){
 			Integer bookId =new Integer (req.getParameter("bookId"));
-			book=bookService.getBookById(bookId);
-			
-			
+			book=bookService.getBookById(bookId);	
 		}
 		
 		req.setAttribute("book", book);

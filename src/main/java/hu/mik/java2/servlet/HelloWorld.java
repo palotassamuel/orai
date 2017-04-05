@@ -25,7 +25,7 @@ public class HelloWorld extends HttpServlet {
     }
     
     public void init() throws ServletException {
-    	message = "Hello World!";
+    	message = "Hello Worlds!";
     }
 
 	/**

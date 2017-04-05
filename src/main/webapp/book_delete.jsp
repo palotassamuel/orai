@@ -9,28 +9,32 @@
 <title>Könyv adatai</title>
 </head>
 <body>
+	<form action="book_delete" method="post">
 	<table border="1">
 		<tr>
 			<td>Könyv azonosítója</td>
-			<td><c:out value="${book.id}"/></td>
+			<td><c:out value="${book.id}"/></td>		
 		</tr>
 		<tr>
 			<td>Könyv címe</td>
-			<td><c:out value="${book.title}"/></td>
+			<td><c:out value="${book.title}"/></td>			
 		</tr>
 		<tr>
 			<td>Könyv szerzője</td>
-			<td><c:out value="${book.author}"/></td>
+			<td><c:out value="${book.author}"/></td>			
 		</tr>
 		<tr>
 			<td>Könyv leírása</td>
-			<td><c:out value="${book.description}"/></td>
+			<td><c:out value="${book.description}"/></td>			
 		</tr>
 		<tr>
 			<td>Kiadás éve</td>
-			<td><c:out value="${book.pubYear}"/></td>
+			<td><c:out value="${book.pubYear}"/></td>			
 		</tr>
 	</table>
 	<a href="book_list">Vissza a könyv listához</a>
+	<p></p>
+	<input type="submit" value="Törlés"/>
+	</form>
 </body>
 </html>

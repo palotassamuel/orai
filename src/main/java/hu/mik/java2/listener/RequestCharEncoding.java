@@ -1,14 +1,13 @@
 package hu.mik.java2.listener;
 
 import java.io.UnsupportedEncodingException;
-
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 
 public class RequestCharEncoding implements ServletRequestListener{
 
 	@Override
-	public void requestDestroyed(ServletRequestEvent arg0) {
+	public void requestDestroyed(ServletRequestEvent servletRequestEvent) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -11,7 +11,7 @@
 	<table border="1">
 		<tr>
 			<td>Könyv azonosítója</td>
-			<td><input name="id" value="${book.id}"/></td>			
+			<td><input name="id" readonly="readonly" value="${book.id}"/></td>		
 		</tr>
 		<tr>
 			<td>Könyv címe</td>
@@ -30,6 +30,8 @@
 			<td><input name="pubYear" value="${book.pubYear}"/></td>			
 		</tr>
 	</table>
+	<p></p>
+	<input type="submit" value="Mentés"/>
 	</form>
 </body>
 </html>

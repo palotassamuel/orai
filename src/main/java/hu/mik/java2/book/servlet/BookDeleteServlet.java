@@ -16,57 +16,45 @@ import hu.mik.java2.book.bean.Book;
 import hu.mik.java2.service.BookService;
 import hu.mik.java2.service.ServiceUtils;
 
-@WebServlet(urlPatterns = "/book_edit")
-public class BookEditServlet extends HttpServlet{
+@WebServlet(urlPatterns="/book_delete")
+public class BookDeleteServlet extends HttpServlet{
 	private static final long serialVersionUID=1L;
 	
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Book book;
 		BookService bookService=ServiceUtils.getBookService();
-		if(req.getParameter("bookId") !=null){
-			Integer bookId=new Integer(req.getParameter("bookId"));
-			book=bookService.getBookById(bookId);
-			
-		}else{
-			book= new Book();
-		}
-		
-		req.setAttribute("book", book);
-		
-		RequestDispatcher requestDispatcher=req.getRequestDispatcher("/book_edit.jsp");
-		
-		requestDispatcher.forward(req, resp);
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Book book=new Book();
-		try {
+		
+		if(req.getParameter("bookId")!=null){
+			Integer bookId =new Integer (req.getParameter("bookId"));
+			book=bookService.getBookById(bookId);
+		}	
+			
+	    req.setAttribute("book", book);
+			
+	    RequestDispatcher requestDispatcher=req.getRequestDispatcher("/book_delete.jsp");
+		requestDispatcher.forward(req, resp);
+			
+		
+	}
+	
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	Book book=new Book();
+    	try {
 			BeanUtils.populate(book, req.getParameterMap());
-			if(req.getParameter("id")==null || req.getParameter("id").isEmpty())
-			{
-				book.setId(null);
-			}
-		} catch (IllegalAccessException | InvocationTargetException e) {
+    	} catch (IllegalAccessException | InvocationTargetException e) {
 			throw new RuntimeException(e); 
 		}
 		
 		BookService bookService= ServiceUtils.getBookService();
 		
-		Book updateBook;
-		if (book.getId() == null){
-			updateBook=bookService.saveBook(book);
-		}else{
-			updateBook=bookService.updateBook(book);
-		}
-		req.setAttribute("book", updateBook);
+		Book deleteBook=bookService.deleteBook(book);
+		req.setAttribute("book", deleteBook);
 		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/book_details.jsp");
 				
 		requestDispatcher.forward(req, resp);
-		
-	}
-	
+    }
+
 }

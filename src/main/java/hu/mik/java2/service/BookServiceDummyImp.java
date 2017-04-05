@@ -70,7 +70,7 @@ public class BookServiceDummyImp implements BookService{
 
 	@Override
 	public synchronized Book deleteBook(Book book) {
-		// TODO Auto-generated method stub
+		bookList.remove(book);
 		return null;
 	}
 
