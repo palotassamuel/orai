@@ -24,11 +24,8 @@ public class BookDeleteServlet extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		BookService bookService=ServiceUtils.getBookService();
 		Book book=new Book();
-		
-		if(req.getParameter("bookId")!=null){
-			Integer bookId =new Integer (req.getParameter("bookId"));
-			book=bookService.getBookById(bookId);
-		}	
+		Integer bookId =new Integer (req.getParameter("bookId"));
+		book=bookService.getBookById(bookId);
 			
 	    req.setAttribute("book", book);
 			
@@ -49,8 +46,9 @@ public class BookDeleteServlet extends HttpServlet{
 		
 		BookService bookService= ServiceUtils.getBookService();
 		
-		Book deleteBook=bookService.deleteBook(book);
-		req.setAttribute("book", deleteBook);
+		bookService.deleteBook(book);
+		
+		req.setAttribute("book", book);
 		
 		RequestDispatcher requestDispatcher = req.getRequestDispatcher("/book_details.jsp");
 				

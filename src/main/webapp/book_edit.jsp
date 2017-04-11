@@ -30,7 +30,6 @@
 			<td><input name="pubYear" value="${book.pubYear}"/></td>			
 		</tr>
 	</table>
-	<p></p>
 	<input type="submit" value="Mentés"/>
 	</form>
 </body>

@@ -21,7 +21,7 @@ public class BookServiceNativeDbImpl implements BookService {
 		try {
 			InitialContext context = new InitialContext();
 
-			this.dataSource = (DataSource) context.lookup("book/bookDatasource");
+			this.dataSource = (DataSource) context.lookup("book/BookDatasource");
 		} catch (NamingException e) {
 			throw new RuntimeException(e);
 		}
@@ -138,13 +138,55 @@ public class BookServiceNativeDbImpl implements BookService {
 
 	@Override
 	public Book updateBook(Book book) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Book bookById=getBookById(book.getId());
+		deleteBook(bookById);
+		Integer id = book.getId();
+
+		try {
+			connection = this.dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"INSERT INTO t_book(id, author, title, description, pub_year)"
+			+ " VALUES(?,?,?,?,?)");
+			
+			preparedStatement.setInt(1, id);
+			preparedStatement.setString(2, book.getAuthor());
+			preparedStatement.setString(3, book.getTitle());
+			preparedStatement.setString(4, book.getDescription());
+			preparedStatement.setInt(5, book.getPubYear());
+			
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			this.closeResource(preparedStatement);
+			this.closeResource(connection);
+		}
+
+		return this.getBookById(id);
 	}
 
 	@Override
 	public Book deleteBook(Book book) {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		Integer id = book.getId();
+
+		try {
+			connection = this.dataSource.getConnection();
+			preparedStatement = connection.prepareStatement(
+					"DELETE FROM t_book where id=?");
+			
+			preparedStatement.setInt(1, id);			
+			preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		} finally {
+			this.closeResource(preparedStatement);
+			this.closeResource(connection);
+		}
+
 		return null;
 
 	}

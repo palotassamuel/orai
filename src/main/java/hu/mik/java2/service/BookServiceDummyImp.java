@@ -44,7 +44,7 @@ public class BookServiceDummyImp implements BookService{
 	public synchronized Book saveBook(Book book) {
 		book.setId(getNextId());
 		bookList.add(book);
-		return null;
+		return book;
 	}
 
 	private synchronized Integer getNextId(){
@@ -65,12 +65,13 @@ public class BookServiceDummyImp implements BookService{
 		Book bookById=getBookById(book.getId());
 		deleteBook(bookById);
 		bookList.add(book);
-		return null;
+		return book;
 	}
 
 	@Override
 	public synchronized Book deleteBook(Book book) {
-		bookList.remove(book);
+		Book bookById=getBookById(book.getId());
+		bookList.remove(bookById);
 		return null;
 	}
 
