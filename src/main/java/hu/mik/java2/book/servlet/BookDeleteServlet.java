@@ -22,10 +22,15 @@ public class BookDeleteServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Book book;
 		BookService bookService=ServiceUtils.getBookService();
-		Book book=new Book();
-		Integer bookId =new Integer (req.getParameter("bookId"));
-		book=bookService.getBookById(bookId);
+		if(req.getParameter("bookId") !=null){
+			Integer bookId=new Integer(req.getParameter("bookId"));
+			book=bookService.getBookById(bookId);
+			
+		}else{
+			book= new Book();
+		}
 			
 	    req.setAttribute("book", book);
 			

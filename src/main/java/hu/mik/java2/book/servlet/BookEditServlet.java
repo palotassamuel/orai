@@ -16,7 +16,7 @@ import hu.mik.java2.book.bean.Book;
 import hu.mik.java2.service.BookService;
 import hu.mik.java2.service.ServiceUtils;
 
-@WebServlet(urlPatterns = "/book_edit")
+//@WebServlet(urlPatterns = "/book_edit")
 public class BookEditServlet extends HttpServlet{
 	private static final long serialVersionUID=1L;
 	
