@@ -1,6 +1,7 @@
 package hu.mik.java2.book.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,7 @@ import hu.mik.java2.service.BookService;
 public class BookController {
 	
 	@Autowired
+	@Qualifier("bookServiceImpl")
 	private BookService bookService;
 	
 //	public BookController(BookService bookService){
@@ -25,6 +27,13 @@ public class BookController {
 	public String listBooks(Model model){
 		model.addAttribute("books", bookService.listBooks());
 
+		return "book_list";
+	}
+	
+	@RequestMapping(value="/book_search", method=RequestMethod.POST)
+	public String searchBooksByAuthor(String author, Model model){
+		model.addAttribute("books", this.bookService.listBookByAuthor(author));
+		
 		return "book_list";
 	}
 	
@@ -72,14 +81,10 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/book_delete", method=RequestMethod.GET)
-	public String deleteBookGet(@RequestParam Integer bookId, Model model){
-		Book book;
-		if(bookId !=null){
-			book=bookService.getBookById(bookId);
-			
-		}else{
-			book= new Book();
-		}
+	public String deleteBookGet(@RequestParam(required=true) Integer bookId, Model model){
+		
+		Book book=this.bookService.getBookById(bookId);
+		
 		model.addAttribute("book", book);
 		
 		return "book_delete";
@@ -92,7 +97,7 @@ public class BookController {
 		
 		model.addAttribute("book", book);
 		
-		return "book_details";
+		return "redirect:book_list";
 	}
 
 }

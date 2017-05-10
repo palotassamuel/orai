@@ -1,10 +1,32 @@
 package hu.mik.java2.book.bean;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="t_book")
 public class Book {
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="SEQ_GEN")
+	@SequenceGenerator(name="SEQ_GEN", sequenceName="s_book", allocationSize=1, initialValue=50)
 	private Integer id;
+	
+	@Column(name="author")
 	private String author;
+	
+	@Column(name="title")
 	private String title;
+	
+	@Column(name="description")
 	private String description;
+	
+	@Column(name="pub_year")
 	private Integer pubYear;
 	
 	public Integer getId() {

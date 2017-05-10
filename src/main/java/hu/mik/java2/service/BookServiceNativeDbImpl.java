@@ -173,7 +173,7 @@ public class BookServiceNativeDbImpl implements BookService {
 	}
 
 	@Override
-	public Book deleteBook(Book book) {
+	public void deleteBook(Book book) {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 		Integer id = book.getId();
@@ -192,7 +192,6 @@ public class BookServiceNativeDbImpl implements BookService {
 			this.closeResource(connection);
 		}
 
-		return null;
 
 	}
 	
@@ -219,6 +218,12 @@ public class BookServiceNativeDbImpl implements BookService {
 			this.closeResource(preparedStatement);
 			this.closeResource(connection);
 		}
+	}
+
+	@Override
+	public List<Book> listBookByAuthor(String author) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
